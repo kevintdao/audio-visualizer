@@ -64,11 +64,12 @@ function SignOut() {
 
 function Hub(){
   return (
-  <>
+    <>
    <div>RECORD</div>
    <div>VISUALIZE</div>
    <div>CLASSIFY</div> 
-  </>
+   <SignOut />
+   </>
   );
 }
 // This will be where all features will live, will eventually allow the user to be able to tab between each one.
