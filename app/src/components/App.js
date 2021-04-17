@@ -1,25 +1,15 @@
 import React from "react";
-import {Container} from "react-bootstrap";
+import {Tab, Tabs} from "react-bootstrap";
 import {auth, SignIn} from "../firebase.js"
-
 import { useAuthState } from 'react-firebase-hooks/auth';
-import firebase from 'firebase/app';
-import "firebase/auth";
-import 'firebase/firestore';
-
-import { useCollectionData } from 'react-firebase-hooks/firestore';
 
 function App() {
-
   const [user] = useAuthState(auth);
 
   return (
     <div className="App">
       <header>
-
       </header>
-
-
       <section>
         {user ? <Hub /> : <SignIn />}
       </section>
@@ -30,9 +20,11 @@ function App() {
 function Hub(){
   return (
   <>
-   <div>RECORD</div>
-   <div>VISUALIZE</div>
-   <div>CLASSIFY</div> 
+    <Tabs defaultActiveKey="record" id="hub">
+      <Tab eventKey="record" title="Record"></Tab>
+      <Tab eventKey="Visualizer" title="Visualizer"></Tab>
+      <Tab eventKey="Classifier" title="Classifier"></Tab>
+    </Tabs>
   </>
   );
 }
