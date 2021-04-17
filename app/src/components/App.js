@@ -5,7 +5,7 @@ import { useAuthState } from 'react-firebase-hooks/auth';
 import firebase from 'firebase/app';
 import "firebase/auth";
 import 'firebase/firestore';
-
+import RecordTab from './Record';
 import { useCollectionData } from 'react-firebase-hooks/firestore';
 
 
@@ -65,12 +65,12 @@ function SignOut() {
 function Hub(){
   return (
     <>
-   <div>RECORD</div>
+   <RecordTab />
    <div>VISUALIZE</div>
    <div>CLASSIFY</div> 
    <SignOut />
    </>
-  );
+  )
 }
 // This will be where all features will live, will eventually allow the user to be able to tab between each one.
 // function Hub() {
