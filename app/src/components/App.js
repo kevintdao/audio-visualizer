@@ -1,6 +1,6 @@
 import React from "react";
-import {Tab, Tabs} from "react-bootstrap";
-import {auth, SignIn} from "../firebase.js"
+import {Container, Row, Col, Tab, Tabs} from "react-bootstrap";
+import {auth, SignIn, SignOut} from "../firebase.js"
 import { useAuthState } from 'react-firebase-hooks/auth';
 
 function App() {
@@ -20,11 +20,28 @@ function App() {
 function Hub(){
   return (
   <>
-    <Tabs defaultActiveKey="record" id="hub">
-      <Tab eventKey="record" title="Record"></Tab>
-      <Tab eventKey="Visualizer" title="Visualizer"></Tab>
-      <Tab eventKey="Classifier" title="Classifier"></Tab>
-    </Tabs>
+    <Container>
+      <Row>
+        <Col xs={8}>
+          <Tabs defaultActiveKey="record" id="hub">
+            <Tab eventKey="record" title="Record">
+              <h2>"Recording"</h2>
+            </Tab>
+            <Tab eventKey="Visualizer" title="Visualizer">
+              <h2>"Visualizing</h2>
+            </Tab>
+            <Tab eventKey="Classifier" title="Classifier"></Tab>
+          </Tabs>
+        </Col>
+
+        <Col xs={4}>
+          <div style={{float: 'right'}}>
+            <SignOut />
+          </div>
+        </Col>
+      </Row>
+      
+    </Container>
   </>
   );
 }
