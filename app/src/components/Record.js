@@ -12,7 +12,7 @@ export function Record() {
 
     const recordFunc = () => {
         // console.log("Hey fellas you're in the recordFun");
-        console.log(recording);
+        // console.log(recording);
         if(recording){
             setButtonText("Start Recording!");
 
