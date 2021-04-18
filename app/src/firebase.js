@@ -2,8 +2,8 @@ import firebase from 'firebase/app';
 import "firebase/auth";
 import 'firebase/firestore';
 import {Button} from "react-bootstrap";
-import { recording } from "./components/Record";
-
+// import { recording } from "./components/Record";
+require( 'firebase/database' );
 const app = firebase.initializeApp({
       apiKey: "AIzaSyDjQu841eOqLzgyJF47A5nosb74qd5srZY",
       authDomain: "audiovis-271a3.firebaseapp.com",
@@ -16,6 +16,26 @@ const app = firebase.initializeApp({
 export const auth = app.auth();
 
 export default app;
+
+// This whole block was to listen to recording value and to do something when the value changes. Does not work
+// let listenRecordingValObj = {
+//   isRecording: recording,
+//   recordingListener: function(val) {},
+//   set isRecording(val) {
+//     this.isRecording = val;
+//     this.recordingListener(val);
+//   },
+//   get isRecording() {
+//     return this.isRecording;
+//   },
+//   registerListener: function(listener) {
+//     this.recordingListener = listener;
+//   }
+// };
+// listenRecordingValObj.registerListener(function(val) {
+//   console.log(val);
+//   alert("Someone clicked the button and changed val of recording to: " + val);
+// });
 
 export function SignIn() {
   const signInWithGoogle = () => {
@@ -33,3 +53,6 @@ export function SignOut() {
     <Button onClick={() => auth.signOut()}>Sign Out</Button>
   )
 }
+
+
+export var database = firebase.database();
