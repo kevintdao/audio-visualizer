@@ -1,58 +1,78 @@
-export function visualize() {
+export function setAudioOn() { 
+    window.isPaused = false;
+    visualize();
+}
+
+export function setAudioOff() { 
+    window.isPaused = true;
+    visualize();
+}
+
+export function visalizerInit(){
     try{
-        var file = document.getElementById("file");
-    var audio = document.getElementById("audio");
-    var canvas = document.getElementById("canvas");
+        window.file = document.getElementById("file");
+        window.audio = document.getElementById("audio");
+        window.canvas = document.getElementById("canvas");
 
-    audio.src = URL.createObjectURL(file.files[0]);
-    audio.load();
-    audio.play();
+        window.audio.src = URL.createObjectURL(window.file.files[0]);
+        window.audio.load();
 
-    var context = new AudioContext();
-    var src = context.createMediaElementSource(audio);
-    var analyser = context.createAnalyser();
-    var ctx = canvas.getContext('2d');
+        window.context = new AudioContext();
+        window.audioSrc = window.context.createMediaElementSource(window.audio);
+        window.analyser = window.context.createAnalyser();
+        window.ctx = window.canvas.getContext('2d');
 
-    src.connect(analyser);
-    analyser.connect(context.destination);
+        window.audioSrc.connect(window.analyser);
+        window.analyser.connect(window.context.destination);
 
-    analyser.fftSize = 256;
+        window.analyser.fftSize = 128;
+        window.bufferLength = window.analyser.frequencyBinCount;
+        window.dataArray = new Uint8Array(window.bufferLength);
 
-    var bufferLength = analyser.frequencyBinCount;
-    var dataArray = new Uint8Array(bufferLength);
+        window.barWidth = window.canvas.width / window.bufferLength;
 
-    var barWidth = (canvas.width / bufferLength);
-    var barHeight;
-    var x = 0;
-
-    function renderFrame(){
-        requestAnimationFrame(renderFrame);
-        x = 0;
+        visualize();
         
-        analyser.getByteFrequencyData(dataArray);
-
-        console.log(dataArray[90]);
-
-        ctx.fillStyle = "#000";
-        ctx.fillRect(0, 0, canvas.width, canvas.height);
-
-        for(var i = 0; i < bufferLength; i++){
-            barHeight = dataArray[i];
-
-            var r = barHeight + (25 * (i/bufferLength));
-            var g = 250 * (i/bufferLength);
-            var b = 50;
-
-            ctx.fillStyle = "rgb(" + r + "," + g + "," + b +")";
-            ctx.fillRect(x, canvas.height - barHeight, barWidth, barHeight);
-
-            x += barWidth + 1;
-        }
-    }
-
-    renderFrame();
     } catch(e){
         console.log(e);
     }
 }
 
+function visualize(){
+    if(window.isPaused === true){
+        if(window.dataArray.every(e => e === 0)){
+            return;
+        }
+        else{
+            renderFrame();
+        }
+    }
+    else{
+        renderFrame();
+    }
+}
+
+function renderFrame(){
+    window.myReq = requestAnimationFrame(visualize);
+    var x = 0;
+    
+    window.analyser.getByteFrequencyData(window.dataArray);
+
+    console.log(window.dataArray);
+
+    window.ctx.fillStyle = "#000";
+    window.ctx.fillRect(0, 0, window.canvas.width, window.canvas.height);
+
+    for(var i = 0; i < window.bufferLength; i++){
+        window.barHeight = window.dataArray[i];
+
+        var r = window.barHeight + 25;
+        var g = 25;
+        var b = 50;
+
+        window.ctx.fillStyle = "rgb(" + r + "," + g + "," + b +")";
+        window.ctx.fillRect(x, window.canvas.height - window.barHeight, window.barWidth, window.barHeight);
+
+        x += window.barWidth + 1;
+    }
+}
