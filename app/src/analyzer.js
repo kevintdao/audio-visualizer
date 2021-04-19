@@ -1,5 +1,6 @@
 export function visualize() {
-    var file = document.getElementById("file");
+    try{
+        var file = document.getElementById("file");
     var audio = document.getElementById("audio");
     var canvas = document.getElementById("canvas");
 
@@ -8,12 +9,7 @@ export function visualize() {
     audio.play();
 
     var context = new AudioContext();
-    var src;
-    try{
-        src = context.createMediaElementSource(audio);
-    } catch(e){
-        console.log(e);
-    }
+    var src = context.createMediaElementSource(audio);
     var analyser = context.createAnalyser();
     var ctx = canvas.getContext('2d');
 
@@ -25,7 +21,7 @@ export function visualize() {
     var bufferLength = analyser.frequencyBinCount;
     var dataArray = new Uint8Array(bufferLength);
 
-    var barWidth = (canvas.width / bufferLength) * 2.5;
+    var barWidth = (canvas.width / bufferLength);
     var barHeight;
     var x = 0;
 
@@ -34,6 +30,8 @@ export function visualize() {
         x = 0;
         
         analyser.getByteFrequencyData(dataArray);
+
+        console.log(dataArray[90]);
 
         ctx.fillStyle = "#000";
         ctx.fillRect(0, 0, canvas.width, canvas.height);
@@ -53,5 +51,8 @@ export function visualize() {
     }
 
     renderFrame();
+    } catch(e){
+        console.log(e);
+    }
 }
 
