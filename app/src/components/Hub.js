@@ -2,11 +2,12 @@ import React from 'react';
 import {Container, Row, Col, Tab, Tabs} from "react-bootstrap";
 import {SignOut} from "../firebase.js";
 import {Record} from "./Record.js";
+import {Visualizer} from "./Visualizer.js";
 
 export function Hub() {
     return (
         <>
-          <Container>
+          <Container style={{marginTop: '10px'}}>
             <Row>
               <Col xs={8}>
                 <Tabs defaultActiveKey="record" id="hub">
@@ -15,7 +16,7 @@ export function Hub() {
                     <Record />
                   </Tab>
                   <Tab eventKey="Visualizer" title="Visualizer">
-                    <h2>"Visualizing</h2>
+                    <Visualizer />
                   </Tab>
                   <Tab eventKey="Classifier" title="Classifier"></Tab>
                 </Tabs>

@@ -13,13 +13,5 @@ function App() {
     </div>
   );
 }
-// This will be where all features will live, will eventually allow the user to be able to tab between each one.
-// function Hub() {
-//   return (
-//     <ButtonRecordTab />
-//     <VisualizerTab />
-//     <ClassiferTab / >
-//   )
-// }
 
 export default App;
