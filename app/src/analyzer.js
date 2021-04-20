@@ -14,6 +14,9 @@ export function visalizerInit(){
         window.audio = document.getElementById("audio");
         window.canvas = document.getElementById("canvas");
 
+        window.canvas.width = window.innerWidth;
+        window.canvas.height = window.innerHeight/ 1.5;
+
         window.audio.src = URL.createObjectURL(window.file.files[0]);
         window.audio.load();
 
@@ -25,7 +28,7 @@ export function visalizerInit(){
         window.audioSrc.connect(window.analyser);
         window.analyser.connect(window.context.destination);
 
-        window.analyser.fftSize = 128;
+        window.analyser.fftSize = 256;
         window.bufferLength = window.analyser.frequencyBinCount;
         window.dataArray = new Uint8Array(window.bufferLength);
 
@@ -58,9 +61,7 @@ function renderFrame(){
     
     window.analyser.getByteFrequencyData(window.dataArray);
 
-    console.log(window.dataArray);
-
-    window.ctx.fillStyle = "#000";
+    window.ctx.fillStyle = "#FFF";
     window.ctx.fillRect(0, 0, window.canvas.width, window.canvas.height);
 
     for(var i = 0; i < window.bufferLength; i++){

@@ -3,6 +3,7 @@ import {Container, Row, Col, Tab, Tabs} from "react-bootstrap";
 import {SignOut} from "../firebase.js";
 import {Record} from "./Record.js";
 import {Visualizer} from "./Visualizer.js";
+import {visalizerInit} from '../analyzer.js';
 
 export function Hub() {
     return (
@@ -12,7 +13,6 @@ export function Hub() {
               <Col xs={8}>
                 <Tabs defaultActiveKey="record" id="hub">
                   <Tab eventKey="record" title="Record">
-                    <h2>"Recording"</h2>
                     <Record />
                   </Tab>
                   <Tab eventKey="Visualizer" title="Visualizer">
@@ -26,6 +26,7 @@ export function Hub() {
                 <div style={{float: 'right'}}>
                   <SignOut />
                 </div>
+                <input type="file" id="file" accept="audio/*" onChange={visalizerInit}/>
               </Col>
             </Row>
             
