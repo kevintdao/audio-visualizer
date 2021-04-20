@@ -1,6 +1,6 @@
 export function setAudioOn() { 
     window.isPaused = false;
-    visualize();
+    visualize()
 }
 
 export function setAudioOff() { 
@@ -10,17 +10,23 @@ export function setAudioOff() {
 
 export function colorRed(){
     window.color = 'red';
-    visualize();
+    if(window.file.files[0]){
+        visualize();
+    }
 }
 
 export function colorBlue(){
     window.color = 'blue';
-    visualize();
+    if(window.file.files[0]){
+        visualize();
+    }
 }
 
 export function colorGreen(){
     window.color = 'green';
-    visualize();
+    if(window.file.files[0]){
+        visualize();
+    }
 }
 
 export function visalizerInit(){
@@ -80,20 +86,23 @@ function renderFrame(){
     window.ctx.fillRect(0, 0, window.canvas.width, window.canvas.height);
 
     for(var i = 0; i < window.bufferLength; i++){
-        window.barHeight = window.dataArray[i];
+        window.barHeight = window.dataArray[i] * 2;
 
         var r = 25;
         var g = 25;
         var b = 25;
 
         if(window.color === 'red'){
-            r = window.barHeight + 25;
+            r = window.barHeight + (25 * (i/window.bufferLength));
+            g = 100 * (i/window.bufferLength);
         }
         else if (window.color === 'blue'){
-            b = window.barHeight + 25;
+            b = window.barHeight + (25 * (i/window.bufferLength));
+            r = 100 * (i/window.bufferLength);
         }
         else if(window.color === 'green'){
-            g = window.barHeight + 25;
+            g = window.barHeight + (25 * (i/window.bufferLength));
+            b = 100 * (i/window.bufferLength);
         }
 
         window.ctx.fillStyle = "rgb(" + r + "," + g + "," + b +")";

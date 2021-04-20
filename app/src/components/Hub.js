@@ -4,8 +4,11 @@ import {SignOut} from "../firebase.js";
 import {Record} from "./Record.js";
 import {Visualizer} from "./Visualizer.js";
 import {visalizerInit} from '../analyzer.js';
+import {setAudioOn, setAudioOff} from '../analyzer.js'
 
 export function Hub() {
+
+
     return (
         <>
           <Container style={{marginTop: '10px'}}>

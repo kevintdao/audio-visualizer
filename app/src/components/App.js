@@ -7,6 +7,10 @@ import {useAuthState} from 'react-firebase-hooks/auth';
 function App() {
   const [user] = useAuthState(auth);
 
+
+  //console.log(auth.currentUser.uid);
+  
+
   return (
     <div className="App">
       {user ? <Hub /> : <SignIn />}
