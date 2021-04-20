@@ -4,10 +4,11 @@ import {SignOut} from "../firebase.js";
 import {Record} from "./Record.js";
 import {Visualizer} from "./Visualizer.js";
 import {visalizerInit} from '../analyzer.js';
-import {setAudioOn, setAudioOff} from '../analyzer.js'
+import {setAudioOn, setAudioOff} from '../analyzer.js';
+import { recordInit } from '../record';
 
 export function Hub() {
-
+    recordInit();
 
     return (
         <>
@@ -30,8 +31,10 @@ export function Hub() {
                   <SignOut />
                 </div>
                 <input type="file" id="file" accept="audio/*" onChange={visalizerInit}
-                    style={{marginTop: '10px'}}/>
+                    style={{marginTop: '10px'}} capture/>
               </Col>
+
+
             </Row>
           </Container>
         </>
