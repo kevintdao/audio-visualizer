@@ -8,6 +8,21 @@ export function setAudioOff() {
     visualize();
 }
 
+export function colorRed(){
+    window.color = 'red';
+    visualize();
+}
+
+export function colorBlue(){
+    window.color = 'blue';
+    visualize();
+}
+
+export function colorGreen(){
+    window.color = 'green';
+    visualize();
+}
+
 export function visalizerInit(){
     try{
         window.file = document.getElementById("file");
@@ -28,7 +43,7 @@ export function visalizerInit(){
         window.audioSrc.connect(window.analyser);
         window.analyser.connect(window.context.destination);
 
-        window.analyser.fftSize = 256;
+        window.analyser.fftSize = 128;
         window.bufferLength = window.analyser.frequencyBinCount;
         window.dataArray = new Uint8Array(window.bufferLength);
 
@@ -67,9 +82,19 @@ function renderFrame(){
     for(var i = 0; i < window.bufferLength; i++){
         window.barHeight = window.dataArray[i];
 
-        var r = window.barHeight + 25;
+        var r = 25;
         var g = 25;
-        var b = 50;
+        var b = 25;
+
+        if(window.color === 'red'){
+            r = window.barHeight + 25;
+        }
+        else if (window.color === 'blue'){
+            b = window.barHeight + 25;
+        }
+        else if(window.color === 'green'){
+            g = window.barHeight + 25;
+        }
 
         window.ctx.fillStyle = "rgb(" + r + "," + g + "," + b +")";
         window.ctx.fillRect(x, window.canvas.height - window.barHeight, window.barWidth, window.barHeight);

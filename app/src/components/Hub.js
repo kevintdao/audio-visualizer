@@ -26,10 +26,10 @@ export function Hub() {
                 <div style={{float: 'right'}}>
                   <SignOut />
                 </div>
-                <input type="file" id="file" accept="audio/*" onChange={visalizerInit}/>
+                <input type="file" id="file" accept="audio/*" onChange={visalizerInit}
+                    style={{marginTop: '10px'}}/>
               </Col>
             </Row>
-            
           </Container>
         </>
     );
