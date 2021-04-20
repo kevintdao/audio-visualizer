@@ -17,32 +17,11 @@ export const auth = app.auth();
 
 export default app;
 
-// This whole block was to listen to recording value and to do something when the value changes. Does not work
-// let listenRecordingValObj = {
-//   isRecording: recording,
-//   recordingListener: function(val) {},
-//   set isRecording(val) {
-//     this.isRecording = val;
-//     this.recordingListener(val);
-//   },
-//   get isRecording() {
-//     return this.isRecording;
-//   },
-//   registerListener: function(listener) {
-//     this.recordingListener = listener;
-//   }
-// };
-// listenRecordingValObj.registerListener(function(val) {
-//   console.log(val);
-//   alert("Someone clicked the button and changed val of recording to: " + val);
-// });
-
 export function SignIn() {
   const signInWithGoogle = () => {
     const provider = new firebase.auth.GoogleAuthProvider();
     auth.signInWithPopup(provider);
   }
-
   return (
       <Button onClick={signInWithGoogle}>Sign in with Google</Button>
   )
@@ -56,3 +35,4 @@ export function SignOut() {
 
 
 export var database = firebase.database();
+
