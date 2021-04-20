@@ -3,7 +3,6 @@ import React, { useState } from 'react';
 import '../firebase';
 import {database, auth} from '../firebase';
 
-
 let recording = false;
 // will contain button that user presses once to active recording feature, and can press once more when recording is over
 
