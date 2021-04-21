@@ -24,14 +24,6 @@ export function Visualizer() {
                     <Button variant='dark' style={{background: 'green'}} onClick={colorGreen}>Green</Button>
                 </ButtonGroup>
             </div>
-            <audio id="audio" 
-                controls
-                onPause={setAudioOff} 
-                onPlay={setAudioOn} 
-                style={{width: '100%',
-                        display: 'flex',
-                        margin: '10px'}}>
-            </audio>
         </>
     )
 }
