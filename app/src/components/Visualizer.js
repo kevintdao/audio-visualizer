@@ -1,6 +1,6 @@
 import React from 'react';
 import {Button, ButtonGroup} from "react-bootstrap";
-import {setAudioOn, setAudioOff, colorRed, colorBlue, colorGreen} from '../analyzer.js';
+import {colorRed, colorBlue, colorGreen} from '../analyzer.js';
 
 export function Visualizer() {
     window.color = 'red';
