@@ -1,14 +1,15 @@
 import React from 'react';
 import {Container, Row, Col, Tab, Tabs} from "react-bootstrap";
 import {SignOut} from "../firebase.js";
-import {Record} from "./Record.js";
+//import {Record} from "./Record.js";
+import { Record } from "./betterRecord";
 import {Visualizer} from "./Visualizer.js";
 import {visalizerInit} from '../analyzer.js';
 import {setAudioOn, setAudioOff} from '../analyzer.js';
-import { recordInit } from '../record';
+// import { recordInit } from '../record';
 
 export function Hub() {
-    recordInit();
+    // recordInit();
 
     return (
         <>
@@ -32,6 +33,7 @@ export function Hub() {
                 </div>
                 <input type="file" id="file" accept="audio/*" onChange={visalizerInit}
                     style={{marginTop: '10px'}} capture/>
+                <a id="download"  onChange={visalizerInit}>Download</a>
               </Col>
 
 
