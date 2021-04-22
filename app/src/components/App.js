@@ -1,18 +1,14 @@
-import React, { useEffect, useRef } from "react";
-import io from "socket.io-client";
+import React from "react";
 
 import {auth, SignIn} from "../firebase.js"
 import {Hub} from "./Hub.js";
 import {useAuthState} from 'react-firebase-hooks/auth';
-
-const CONNECTION_PORT = 'raspberrypi.local:3001';     // current pi local host
+import {socket} from '../client.js'
 
 function App() {
   const [user] = useAuthState(auth);
 
-  useEffect(() => {
-    let socket = io(CONNECTION_PORT, {transports: ['websocket']});
-  })
+  console.log(socket);
 
   return (
     <div className="App">
