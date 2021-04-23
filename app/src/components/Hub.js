@@ -33,7 +33,7 @@ export function Hub() {
                 </div>
                 <input type="file" id="file" accept="audio/*" onChange={visalizerInit}
                     style={{marginTop: '10px'}} capture/>
-                <a id="download"  onChange={visalizerInit}>Download</a>
+                <a href="/" id="download">Download</a>    
               </Col>
 
 
