@@ -2,8 +2,10 @@ import firebase from 'firebase/app';
 import "firebase/auth";
 import 'firebase/firestore';
 import {Button} from "react-bootstrap";
+
 // import { recording } from "./components/Record";
 require( 'firebase/database' );
+
 const app = firebase.initializeApp({
       apiKey: "AIzaSyDjQu841eOqLzgyJF47A5nosb74qd5srZY",
       authDomain: "audiovis-271a3.firebaseapp.com",

@@ -1,6 +1,6 @@
 import React from 'react';
 import {Button, ButtonGroup} from "react-bootstrap";
-import {setAudioOn, setAudioOff, colorRed, colorBlue, colorGreen} from '../analyzer.js';
+import {colorRed, colorBlue, colorGreen} from '../analyzer.js';
 
 export function Visualizer() {
     window.color = 'red';
@@ -24,14 +24,6 @@ export function Visualizer() {
                     <Button variant='dark' style={{background: 'green'}} onClick={colorGreen}>Green</Button>
                 </ButtonGroup>
             </div>
-            <audio id="audio" 
-                controls
-                onPause={setAudioOff} 
-                onPlay={setAudioOn} 
-                style={{width: '100%',
-                        display: 'flex',
-                        margin: '10px'}}>
-            </audio>
         </>
     )
 }

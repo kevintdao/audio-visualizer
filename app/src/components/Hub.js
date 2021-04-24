@@ -5,11 +5,11 @@ import {SignOut} from "../firebase.js";
 import { Record } from "./betterRecord";
 import {Visualizer} from "./Visualizer.js";
 import {visalizerInit} from '../analyzer.js';
-import {setAudioOn, setAudioOff} from '../analyzer.js';
-// import { recordInit } from '../record';
+import {setAudioOn, setAudioOff, visualize} from '../analyzer.js'
+import {sendUID} from '../client.js'
 
 export function Hub() {
-    // recordInit();
+    //sendUID();
 
     return (
         <>
@@ -38,6 +38,18 @@ export function Hub() {
 
 
             </Row>
+            <audio id="audio" 
+                controls
+                onPause={setAudioOff} 
+                onPlay={setAudioOn} 
+                style={{width: '95%',
+                        display: 'flex',
+                        position: 'fixed',
+                        bottom: '20px',
+                        right: '2.5%',
+                        marginTop: '10px',
+                        marginBottom: '10px'}}>
+            </audio>
           </Container>
         </>
     );
