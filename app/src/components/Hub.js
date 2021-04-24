@@ -35,6 +35,18 @@ export function Hub() {
                     style={{marginTop: '10px'}} capture/>
                 <a href="/" id="download">Download</a>    
               </Col>
+              <audio id="audio" 
+                controls
+                onPause={setAudioOff} 
+                onPlay={setAudioOn} 
+                style={{width: '95%',
+                        display: 'flex',
+                        position: 'fixed',
+                        bottom: '20px',
+                        right: '2.5%',
+                        marginTop: '10px',
+                        marginBottom: '10px'}}>
+              </audio>
 
 
             </Row>
