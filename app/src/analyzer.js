@@ -1,6 +1,8 @@
+import { ledArray } from "./client";
+
 export function setAudioOn() { 
     window.isPaused = false;
-    visualize()
+    visualize();
 }
 
 export function setAudioOff() { 
@@ -35,6 +37,10 @@ export function visalizerInit(){
         window.audio = document.getElementById("audio");
         window.canvas = document.getElementById("canvas");
 
+        window.isPaused = true;
+        window.color = 'red';
+        window.interval = null;
+
         window.canvas.width = window.innerWidth;
         window.canvas.height = window.innerHeight/ 1.5;
 
@@ -49,11 +55,11 @@ export function visalizerInit(){
         window.audioSrc.connect(window.analyser);
         window.analyser.connect(window.context.destination);
 
-        window.analyser.fftSize = 128;
+        window.analyser.fftSize = 64;
         window.bufferLength = window.analyser.frequencyBinCount;
         window.dataArray = new Uint8Array(window.bufferLength);
 
-        window.barWidth = window.canvas.width / window.bufferLength;
+        window.barWidth = (window.canvas.width / window.bufferLength) * 1.25;
 
         visualize();
         
@@ -68,10 +74,12 @@ function visualize(){
             return;
         }
         else{
+            sendLEDArray();
             renderFrame();
         }
     }
     else{
+        sendLEDArray();
         renderFrame();
     }
 }
@@ -110,4 +118,8 @@ function renderFrame(){
 
         x += window.barWidth + 1;
     }
+}
+
+function sendLEDArray() {
+    ledArray(window.dataArray, window.color);
 }

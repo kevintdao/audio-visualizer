@@ -4,10 +4,11 @@ import {SignOut} from "../firebase.js";
 import {Record} from "./Record.js";
 import {Visualizer} from "./Visualizer.js";
 import {visalizerInit} from '../analyzer.js';
-import {setAudioOn, setAudioOff} from '../analyzer.js'
+import {setAudioOn, setAudioOff, visualize} from '../analyzer.js'
+import {sendUID} from '../client.js'
 
 export function Hub() {
-
+    //sendUID();
 
     return (
         <>
