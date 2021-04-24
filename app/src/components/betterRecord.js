@@ -9,10 +9,6 @@ export function Record(){
     let shouldStop = false;
     let stopped = false;
 
-    const [buttonText, setButtonText] = useState('Start!');
-    const audioRef = useRef(null);
-
-    const downloadLink = document.getElementById('download');
     const stopButton = () => {
         shouldStop = true;
     };
@@ -22,9 +18,8 @@ export function Record(){
         const recordedChunks = [];
         const options = {mimeType: 'audio/webm'};
         navigator.mediaDevices.getUserMedia({audio:true, video: false}).then( stream => {
-
             const mediaRecorder = new MediaRecorder(stream, options);
-
+            mediaRecorder.start(1000);
             mediaRecorder.ondataavailable = function(e) {
                 if (e.data.size > 0) {
                     console.log(e.data.size);
@@ -36,11 +31,13 @@ export function Record(){
                 }
             };
             mediaRecorder.addEventListener('stop', function() {
-                downloadLink.href = URL.createObjectURL(new Blob(recordedChunks));
+                const downloadLink = document.getElementById('download');
+                var newObj = new Blob(recordedChunks);
+                downloadLink.href =  URL.createObjectURL(newObj);
                 downloadLink.download = 'input-from-mic.wav';
               });
           
-            mediaRecorder.start(1000);
+            // mediaRecorder.start(1000);
 
     });
     }
