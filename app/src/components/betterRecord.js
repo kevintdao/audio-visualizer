@@ -52,9 +52,8 @@ export function Record(){
     }
     return (
         <>
-                <Button onClick={getAudio}>Start Record</Button>
-                <Button onClick={stopButton}>Stop Recording</Button>
-
+                <Button id="start" onClick={getAudio} variant='success' style={{marginLeft: '10px', marginRight: '10px'}}>Start</Button>
+                <Button id="stop" onClick={stopButton} variant='danger' style={{marginLeft: '10px', marginRight: '10px'}}>Stop</Button>
         </>
     );
 

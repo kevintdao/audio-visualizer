@@ -10,14 +10,20 @@ export function Visualizer() {
             <canvas id="canvas" 
                 width={window.innerWidth}
                 height={window.innerHeight/1.5}
-                style={{width: '100%', 
-                        height: '100%',
+                style={{width: '50%', 
+                        height: '50%',
+                        display: 'flex',
+                        position: 'fixed',
                         border: 'solid 1px #DEE2E6',
                         borderRadius: '5px',
-                        margin: '10px',
-                        display: 'flex'
+                        top: '135px',
+                        left: '5%'
                         }}/>
-            <div id="waveColorButton" style={{justifyContent: 'center', display: 'flex', margin: '10px'}}>
+
+            <div id="waveColorButton" style={{  display: 'flex', 
+                                                position: 'fixed',
+                                                top: '85px',
+                                                left: '5%'}}>
                 <ButtonGroup>
                     <Button variant='dark' style={{background: 'red'}} onClick={colorRed}>Red</Button>
                     <Button variant='dark' style={{background: 'blue'}} onClick={colorBlue}>Blue</Button>
