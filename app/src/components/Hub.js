@@ -4,7 +4,7 @@ import {SignOut} from "../firebase.js";
 //import {Record} from "./Record.js";
 import { Record } from "./betterRecord";
 import {Visualizer} from "./Visualizer.js";
-import {visalizerInit} from '../analyzer.js';
+import {visalizerInit, visalizerInitForRecord} from '../analyzer.js';
 import {setAudioOn, setAudioOff} from '../analyzer.js';
 // import { recordInit } from '../record';
 

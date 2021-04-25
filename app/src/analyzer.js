@@ -123,3 +123,42 @@ function renderFrame(){
 function sendLEDArray() {
     ledArray(window.dataArray, window.color);
 }
+
+export function visalizerInitForRecord(){
+    try{
+        var aud = sessionStorage.getItem('file');
+        window.canvas = document.getElementById("canvas");
+
+        window.isPaused = true;
+        window.color = 'red';
+        window.interval = null;
+
+        window.canvas.width = window.innerWidth;
+        window.canvas.height = window.innerHeight/ 1.5;
+
+        console.log(aud);
+
+        window.audio.src = aud;
+        window.audio.load();
+
+        window.context = new AudioContext();
+        window.audioSrc = window.context.createMediaElementSource(window.audio);
+
+        window.analyser = window.context.createAnalyser();
+        window.ctx = window.canvas.getContext('2d');
+
+        window.audioSrc.connect(window.analyser);
+        window.analyser.connect(window.context.destination);
+
+        window.analyser.fftSize = 64;
+        window.bufferLength = window.analyser.frequencyBinCount;
+        window.dataArray = new Uint8Array(window.bufferLength);
+
+        window.barWidth = (window.canvas.width / window.bufferLength) * 1.25;
+
+        visualize();
+        
+    } catch(e){
+        console.log(e);
+    }
+}

@@ -2,7 +2,7 @@ import { Button } from 'react-bootstrap';
 import React, { useState, useRef } from 'react';
 import '../firebase';
 import {database, auth} from '../firebase';
-
+import {visalizerInitForRecord} from '../analyzer.js';
 
 
 export function Record(){
@@ -33,8 +33,17 @@ export function Record(){
             mediaRecorder.addEventListener('stop', function() {
                 const downloadLink = document.getElementById('download');
                 var newObj = new Blob(recordedChunks);
-                downloadLink.href =  URL.createObjectURL(newObj);
+                const url = URL.createObjectURL(newObj);
+                downloadLink.href =  url;
                 downloadLink.download = 'input-from-mic.wav';
+
+                
+                sessionStorage.setItem('file', url);
+
+                visalizerInitForRecord();
+                // const file = document.getElementById('file');
+                
+                // file.value = sessionStorage.getItem('file');
               });
           
             // mediaRecorder.start(1000);
