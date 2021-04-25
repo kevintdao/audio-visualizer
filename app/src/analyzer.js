@@ -39,12 +39,12 @@ export function visalizerInit(){
 
         window.isPaused = true;
         window.color = 'red';
-        window.interval = null;
 
         window.canvas.width = window.innerWidth;
         window.canvas.height = window.innerHeight/ 1.5;
 
         window.audio.src = URL.createObjectURL(window.file.files[0]);
+        console.log(window.audio.src);
         window.audio.load();
 
         window.context = new AudioContext();
@@ -96,25 +96,25 @@ function renderFrame(){
     for(var i = 0; i < window.bufferLength; i++){
         window.barHeight = window.dataArray[i] * 2;
 
-        var r = 25;
-        var g = 25;
-        var b = 25;
+        var r = 50;
+        var g = 50;
+        var b = 50;
 
         if(window.color === 'red'){
-            r = window.barHeight + (25 * (i/window.bufferLength));
-            g = 100 * (i/window.bufferLength);
+            r = (window.barHeight / 2) + (25 * (i/window.bufferLength));
+            g = 25 * (i/window.bufferLength);
         }
         else if (window.color === 'blue'){
-            b = window.barHeight + (25 * (i/window.bufferLength));
-            r = 100 * (i/window.bufferLength);
+            b = (window.barHeight / 2) + (10 * (i/window.bufferLength));
+            r = 25 * (i/window.bufferLength);
         }
         else if(window.color === 'green'){
-            g = window.barHeight + (25 * (i/window.bufferLength));
-            b = 100 * (i/window.bufferLength);
+            g = (window.barHeight / 2.5) + (20 * (i/window.bufferLength));
+            b = 25 * (i/window.bufferLength);
         }
 
         window.ctx.fillStyle = "rgb(" + r + "," + g + "," + b +")";
-        window.ctx.fillRect(x, window.canvas.height - window.barHeight, window.barWidth, window.barHeight);
+        window.ctx.fillRect(x, window.canvas.height - window.barHeight, window.barWidth-1, window.barHeight);
 
         x += window.barWidth + 1;
     }
