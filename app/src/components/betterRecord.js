@@ -14,6 +14,8 @@ export function Record(){
     };
 
     const getAudio = () => {
+        shouldStop = false;
+        stopped = false;
 
         const recordedChunks = [];
         const options = {mimeType: 'audio/webm'};

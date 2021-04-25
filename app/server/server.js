@@ -3,7 +3,7 @@
 
 const express = require('express');
 const socket = require('socket.io');
-const { firebaseApp } = require('./firebase');
+// const { firebaseApp } = require('./firebase');
 const app = express();
 var sense = require("@trbll/sense-hat-led");
 sense.setRotation(90);
@@ -15,7 +15,7 @@ const server = app.listen('3001', () => {
 var io = socket(server);
 var userUID;
 
-firebaseApp();
+//firebaseApp();
 
 io.on('connection', (socket) => {
     console.log(socket.id);

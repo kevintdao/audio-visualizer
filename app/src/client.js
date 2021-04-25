@@ -1,5 +1,4 @@
 import io from "socket.io-client";
-import {auth} from './firebase.js';
 
 const socket = io('raspberrypi.local:3001', {transports: ['websocket']});
 
