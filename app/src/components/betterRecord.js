@@ -2,17 +2,13 @@ import { Button } from 'react-bootstrap';
 import React, { useState, useRef } from 'react';
 import '../firebase';
 import {database, auth} from '../firebase';
-
+import {visalizerInitForRecord} from '../analyzer.js';
 
 
 export function Record(){
     let shouldStop = false;
     let stopped = false;
 
-    const [buttonText, setButtonText] = useState('Start!');
-    const audioRef = useRef(null);
-
-    const downloadLink = document.getElementById('download');
     const stopButton = () => {
         shouldStop = true;
     };
@@ -22,9 +18,8 @@ export function Record(){
         const recordedChunks = [];
         const options = {mimeType: 'audio/webm'};
         navigator.mediaDevices.getUserMedia({audio:true, video: false}).then( stream => {
-
             const mediaRecorder = new MediaRecorder(stream, options);
-
+            mediaRecorder.start(1000);
             mediaRecorder.ondataavailable = function(e) {
                 if (e.data.size > 0) {
                     console.log(e.data.size);
@@ -36,11 +31,22 @@ export function Record(){
                 }
             };
             mediaRecorder.addEventListener('stop', function() {
-                downloadLink.href = URL.createObjectURL(new Blob(recordedChunks));
+                const downloadLink = document.getElementById('download');
+                var newObj = new Blob(recordedChunks);
+                const url = URL.createObjectURL(newObj);
+                downloadLink.href =  url;
                 downloadLink.download = 'input-from-mic.wav';
+
+                
+                sessionStorage.setItem('file', url);
+
+                visalizerInitForRecord();
+                // const file = document.getElementById('file');
+                
+                // file.value = sessionStorage.getItem('file');
               });
           
-            mediaRecorder.start(1000);
+            // mediaRecorder.start(1000);
 
     });
     }
