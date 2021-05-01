@@ -47,8 +47,6 @@ export function Hub() {
                         marginTop: '10px',
                         marginBottom: '10px'}}>
               </audio>
-
-
             </Row>
           </Container>
         </>
