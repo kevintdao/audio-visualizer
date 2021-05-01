@@ -3,6 +3,7 @@ import React, { useState, useRef } from 'react';
 import '../firebase';
 import {database, auth} from '../firebase';
 import {visalizerInitForRecord} from '../analyzer.js';
+import {listen, stop} from '../tensorflow.js';
 
 
 export function Record(){
@@ -11,6 +12,8 @@ export function Record(){
 
     const stopButton = () => {
         shouldStop = true;
+
+        stop();
     };
 
     const getAudio = () => {
@@ -24,7 +27,7 @@ export function Record(){
             mediaRecorder.start(1000);
             mediaRecorder.ondataavailable = function(e) {
                 if (e.data.size > 0) {
-                    console.log(e.data.size);
+                    //console.log(e.data.size);
                     recordedChunks.push(e.data);
                   }
                 if(shouldStop === true && stopped === false) {
@@ -50,6 +53,7 @@ export function Record(){
           
             // mediaRecorder.start(1000);
 
+            listen();
     });
     }
     return (

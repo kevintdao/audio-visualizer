@@ -6,13 +6,28 @@ import { Record } from "./betterRecord";
 import {Visualizer} from "./Visualizer.js";
 import {visalizerInit} from '../analyzer.js';
 import {setAudioOn, setAudioOff} from '../analyzer.js';
+import {createModel} from "../tensorflow.js";
 // import { recordInit } from '../record';
 
 export function Hub() {
     // recordInit();
+    window.isListening = false;
+    createModel().then(result => {
+      window.recognizer = result;
+      window.classLabels = window.recognizer.wordLabels();
+      window.labelContainer = document.getElementById("label-container");
 
-    window.startButton = document.getElementById("start");
-    window.stopButton = document.getElementById("stop");
+      for (let i = 0; i < window.classLabels.length + 1; i++) {
+        window.labelContainer.appendChild(document.createElement("div"));
+        if(i < window.classLabels.length){
+          window.labelContainer.childNodes[i].innerHTML = window.classLabels[i] + ": 0%";
+        }
+        else{
+          window.labelContainer.childNodes[i].innerHTML = "Current: ";
+        }
+        
+      }
+    });
 
     return (
         <>
@@ -46,6 +61,17 @@ export function Hub() {
                           top: '85px',
                           left: '30%'}}>
               <Record /> 
+            </div>
+
+            <div style={{border: 'solid 1px #DEE2E6',
+                        borderRadius: '5px',
+                        display: 'flex',
+                        position: 'fixed',
+                        right: '5%',
+                        top: '135px',
+                        padding: '10px'}}>
+              <div div id="label-container" style={{width: '225px'}}>
+              </div>
             </div>
 
             <audio id="audio" 

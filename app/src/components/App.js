@@ -6,9 +6,6 @@ import {useAuthState} from 'react-firebase-hooks/auth';
 
 function App() {
   const [user] = useAuthState(auth);
-
-  window.startButton = document.getElementById("start");
-  window.stopButton = document.getElementById("stop");
   
   return (
     <div className="App">
