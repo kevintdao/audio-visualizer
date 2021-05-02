@@ -32,7 +32,7 @@ export function Record(){
 
     const stopButton = () => {
         shouldStop = true;
-
+        stop();
     };
 
     const getAudio = () => {
@@ -45,7 +45,6 @@ export function Record(){
             mediaRecorder.start(1000);
             mediaRecorder.ondataavailable = function(e) {
                 if (e.data.size > 0) {
-                    //console.log(e.data.size);
                     recordedChunks.push(e.data);
                   }
                 if(shouldStop === true && stopped === false) {
@@ -58,8 +57,7 @@ export function Record(){
                 var newObj = new Blob(recordedChunks);
                 const url = URL.createObjectURL(newObj);
                 downloadLink.href =  url;
-                downloadLink.download = 'input-from-mic.wav';
-                // console.log('hello');
+                downloadLink.download = 'input-from-mic.wav'
                 
                 sessionStorage.setItem('file', url);
                 var date = new Date();
@@ -74,9 +72,9 @@ export function Record(){
                     window.downloadLinks.childNodes[i].innerHTML = files[i];
                 }
               });
-          
+              
             // mediaRecorder.start(1000);
-
+            listen();
     });
     }
     
