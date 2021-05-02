@@ -1,7 +1,6 @@
 import io from "socket.io-client";
-import {auth} from './firebase.js';
 
-export const socket = io('raspberrypi.local:3001', {transports: ['websocket']});
+const socket = io('raspberrypi.local:3001', {transports: ['websocket']});
 
 // export const sendUID = () => {
 //     socket.emit('sendUID', auth.currentUser.uid);

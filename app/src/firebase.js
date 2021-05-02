@@ -1,6 +1,7 @@
 import firebase from 'firebase/app';
 import "firebase/auth";
 import 'firebase/firestore';
+import "firebase/storage";
 import {Button} from "react-bootstrap";
 
 // import { recording } from "./components/Record";
@@ -35,6 +36,6 @@ export function SignOut() {
   )
 }
 
-
+export var storage = firebase.storage().ref();
 export var database = firebase.database();
 
