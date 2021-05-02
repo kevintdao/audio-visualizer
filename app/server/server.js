@@ -13,7 +13,6 @@ const server = app.listen('3001', () => {
 })
 
 var io = socket(server);
-var userUID;
 
 //firebaseApp();
 
@@ -55,6 +54,9 @@ io.on('connection', (socket) => {
                         }
                         else if(instrument === 'Violin'){
                             sense.setPixel(col, row, [0, 70 + (10*col), 70 + (10*col)]);
+                        }
+                        else{
+                            sense.setPixel(col, row, [0 + (26*col), 0, 0]);
                         }
                     }
                 }
