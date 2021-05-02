@@ -3,7 +3,7 @@ import React from 'react';
 import '../firebase';
 import {auth, storage} from '../firebase';
 import {visalizerInitForRecord} from '../analyzer.js';
- import {listen, stop} from '../tensorflow.js';
+import {listen, stop} from '../tensorflow.js';
 
 export function Record(){
     let shouldStop = false;

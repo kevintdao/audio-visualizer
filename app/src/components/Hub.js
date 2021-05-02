@@ -1,12 +1,11 @@
 import React from 'react';
 import {Container} from "react-bootstrap";
 import {SignOut} from "../firebase.js";
-//import {Record} from "./Record.js";
-import { Record } from "./betterRecord";
+import {Record} from "./betterRecord";
 import {Visualizer} from "./Visualizer.js";
 import {visalizerInit} from '../analyzer.js';
 import {setAudioOn, setAudioOff} from '../analyzer.js';
- import {createModel} from "../tensorflow.js";
+import {createModel} from "../tensorflow.js";
 
 export function Hub() {
     window.isListening = false;
@@ -36,8 +35,7 @@ export function Hub() {
             <div style={{ display: 'flex',
                           position: 'fixed',
                           right: '5%',
-                          top: '10px'
-                        }}>
+                          top: '10px'}}>
               <SignOut />
             </div>
             
@@ -50,8 +48,7 @@ export function Hub() {
                         position: 'fixed',
                         marginBottom: '0px',
                         top: '10px',
-                        left: '5%'
-                       }}/>
+                        left: '5%'}}/>
 
             <a href="/" id="download" style={{display: 'flex',
                                               position: 'fixed',
@@ -72,8 +69,7 @@ export function Hub() {
                         right: '5%',
                         top: '135px',
                         padding: '10px'}}>
-              <div div id="label-container" style={{width: '250px'}}>
-              </div>
+              <div div id="label-container" style={{width: '250px'}}/>
             </div>
 
 
@@ -86,9 +82,7 @@ export function Hub() {
                         padding: '10px',
                         width: '300px'}}>
               <div><p>Download Links:</p></div>
-              <div id="downloadLinks" style={{maxWidth: '300px', display: 'block'}}>
-
-              </div>
+              <div id="downloadLinks" style={{maxWidth: '300px', display: 'block'}}/>
             </div>
 
             <audio id="audio" 

@@ -31,11 +31,27 @@ export function SignIn() {
 }
 
 export function SignOut() {
+
+
   return auth.currentUser && (
-    <Button onClick={() => auth.signOut()}>Sign Out</Button>
+    <Button onClick={signOutAndDelete}>Sign Out</Button>
   )
 }
 
 export var storage = firebase.storage().ref();
 export var database = firebase.database();
 
+function signOutAndDelete() {
+  var uid = auth.currentUser.uid;
+  var listRef = storage.child('users/' + uid);
+  listRef.listAll().then((listResults) => {
+    listResults.prefixes.forEach((folderRef) => {});
+    listResults.items.forEach((itemRef) => {
+      itemRef.delete();
+    });
+  }).catch((error) => {
+    console.log(error);
+  });
+
+  auth.signOut();
+}

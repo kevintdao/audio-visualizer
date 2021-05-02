@@ -16,7 +16,7 @@ export function Visualizer() {
                         position: 'fixed',
                         border: 'solid 1px #DEE2E6',
                         borderRadius: '5px',
-                        top: '135px',
+                        top: '190px',
                         left: '5%'
                         }}/>
 
@@ -30,6 +30,9 @@ export function Visualizer() {
                     <Button variant='dark' style={{background: 'green'}} onClick={colorGreen}>Green</Button>
                     <Button variant='dark' style={{background: 'grey'}} onClick={colorInstrument}>Instrument</Button>
                 </ButtonGroup>
+            </div>
+            <div style={{display: 'flex', position: 'fixed', top: '130px', left: '5%'}}>
+                <p>Instrument Colors:<br></br>Guitar = Orange | Piano = Purple | Trumpet = Yellow | Violin = Cyan</p>
             </div>
         </>
     )
