@@ -17,15 +17,17 @@ export function Hub() {
       window.classLabels = window.recognizer.wordLabels();
       window.labelContainer = document.getElementById("label-container");
 
-      for (let i = 0; i < window.classLabels.length + 1; i++) {
+      for (let i = 0; i < window.classLabels.length + 2; i++) {
         window.labelContainer.appendChild(document.createElement("div"));
         if(i < window.classLabels.length){
           window.labelContainer.childNodes[i].innerHTML = window.classLabels[i] + ": 0%";
         }
-        else{
+        else if(i === window.classLabels.length){
           window.labelContainer.childNodes[i].innerHTML = "Current: ";
         }
-        
+        else{
+          window.labelContainer.childNodes[i].innerHTML = "Most played: ";
+        }
       }
     });
 
@@ -56,10 +58,11 @@ export function Hub() {
                                               position: 'fixed',
                                               left: '5%',
                                               top: '45px'}}>Download</a>  
+                                              
             <div style={{ display: 'flex',
                           position: 'fixed',
                           top: '85px',
-                          left: '30%'}}>
+                          right: '5%'}}>
               <Record /> 
             </div>
 

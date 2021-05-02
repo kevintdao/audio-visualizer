@@ -49,6 +49,7 @@ export function Record(){
                 // const file = document.getElementById('file');
                 
                 // file.value = sessionStorage.getItem('file');
+
               });
           
             // mediaRecorder.start(1000);
@@ -59,7 +60,7 @@ export function Record(){
     return (
         <>
                 <Button id="start" onClick={getAudio} variant='success' style={{marginLeft: '10px', marginRight: '10px'}}>Start</Button>
-                <Button id="stop" onClick={stopButton} variant='danger' style={{marginLeft: '10px', marginRight: '10px'}}>Stop</Button>
+                <Button id="stop" onClick={stopButton} variant='danger' style={{marginLeft: '10px'}}>Stop</Button>
         </>
     );
 

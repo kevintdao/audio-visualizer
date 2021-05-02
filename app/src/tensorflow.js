@@ -21,6 +21,8 @@ export async function createModel() {
 
 
 export function listen() {
+    window.audioIntruments = [0, 0, 0, 0];
+
     window.recognizer.listen(result => {
         const scores = result.scores; // probability of prediction for each class
         // render the probability scores per class
@@ -40,6 +42,9 @@ export function listen() {
                 window.labelContainer.childNodes[i].innerHTML = "Current: " + window.classLabels[maxIndex];
             }
         }
+        // increment the current instrument
+        window.audioIntruments[maxIndex - 1]++;
+        console.log(window.audioIntruments);
     }, {
         includeSpectrogram: true, // in case listen should return result.spectrogram
         probabilityThreshold: 0.75,
@@ -54,12 +59,29 @@ export function stop() {
         window.isListening = false;
     }
 
-    for (let i = 0; i < window.classLabels.length + 1; i++) {
+    // get the most played instrument in the recording
+    var max = 0;
+    var maxIndex = 0;
+    for(let i = 0; i < window.audioIntruments.length; i++){
+        if(window.audioIntruments[i] > max){
+            max = window.audioIntruments[i];
+            maxIndex = i;
+        }
+    }
+
+    window.instrument = window.classLabels[maxIndex + 1];
+
+    console.log(window.instrument);
+
+    for (let i = 0; i < window.classLabels.length + 2; i++) {
         if(i < window.classLabels.length){
             window.labelContainer.childNodes[i].innerHTML = window.classLabels[i] + ": 0%";
         }
-        else{
+        else if(i === window.classLabels.length){
             window.labelContainer.childNodes[i].innerHTML = "Current: ";
-        }
+          }
+          else{
+            window.labelContainer.childNodes[i].innerHTML = "Most played: " + window.instrument;
+          }
     }
 }

@@ -31,6 +31,14 @@ export function colorGreen(){
     }
 }
 
+export function colorInstrument(){
+    window.color = 'instrument';
+    if(window.file.files[0]){
+        visualize();
+    }
+    console.log(window.instrument);
+}
+
 export function visalizerInit(){
     try{
         window.file = document.getElementById("file");
@@ -112,6 +120,38 @@ function renderFrame(){
             g = (window.barHeight / 2.5) + (20 * (i/window.bufferLength));
             b = 25 * (i/window.bufferLength);
         }
+        else if(window.color === 'instrument'){
+            if(window.instrument === 'Guitar'){
+                //orange
+                r = (window.barHeight / 2) + (10 * (i/window.bufferLength));
+                g = (window.barHeight / 4) + (5 * (i/window.bufferLength));
+                b = 0;
+            }
+            else if(window.instrument === 'Piano'){
+                // purple
+                r = (window.barHeight / 2) + (5 * (i/window.bufferLength));
+                g = 0;
+                b = (window.barHeight / 2) + (10 * (i/window.bufferLength));
+            }
+            else if(window.instrument === 'Trumpet'){
+                // yellow
+                r = (window.barHeight / 2) + (10 * (i/window.bufferLength));
+                g = (window.barHeight / 2) + (10 * (i/window.bufferLength));
+                b = 10 * (i/window.bufferLength);
+            }
+            else if(window.instrument === 'Violin'){
+                // cyan
+                r = 0;
+                g = (window.barHeight / 2) + (5 * (i/window.bufferLength));
+                b = (window.barHeight / 2) + (5 * (i/window.bufferLength));
+            }
+            else{
+                // default
+                r = (window.barHeight / 2) + (3 * (i/window.bufferLength));
+                g = 0;
+                b = 0;
+            }
+        }
 
         window.ctx.fillStyle = "rgb(" + r + "," + g + "," + b +")";
         window.ctx.fillRect(x, window.canvas.height - window.barHeight, window.barWidth-1, window.barHeight);
@@ -121,7 +161,7 @@ function renderFrame(){
 }
 
 function sendLEDArray() {
-    ledArray(window.dataArray, window.color);
+    ledArray(window.dataArray, window.color, window.instrument);
 }
 
 export function visalizerInitForRecord(){
