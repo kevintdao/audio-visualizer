@@ -21,7 +21,7 @@ export async function createModel() {
 
 
 export function listen() {
-    window.audioIntruments = [0, 0, 0, 0];
+    window.audioIntruments = [0, 0, 0, 0, 0];
 
     window.recognizer.listen(result => {
         const scores = result.scores; // probability of prediction for each class
@@ -29,7 +29,7 @@ export function listen() {
         var max = 0;
         var maxIndex = 0;
         window.isListening = true;
-        for (let i = 0; i < window.classLabels.length + 1; i++) {
+        for (let i = 0; i < window.classLabels.length + 2; i++) {
             if(i < window.classLabels.length){
                 const classPrediction = window.classLabels[i] + ": " + (scores[i] * 100).toFixed(0) + " %";
                 window.labelContainer.childNodes[i].innerHTML = classPrediction;
@@ -38,13 +38,15 @@ export function listen() {
                     maxIndex = i;
                 }
             }
-            else{
+            else if(i === window.classLabels.length){
                 window.labelContainer.childNodes[i].innerHTML = "Current: " + window.classLabels[maxIndex];
+            }
+            else{
+                window.labelContainer.childNodes[i].innerHTML = "Most played: ";
             }
         }
         // increment the current instrument
-        window.audioIntruments[maxIndex - 1]++;
-        console.log(window.audioIntruments);
+        window.audioIntruments[maxIndex]++;
     }, {
         includeSpectrogram: true, // in case listen should return result.spectrogram
         probabilityThreshold: 0.75,
@@ -69,7 +71,7 @@ export function stop() {
         }
     }
 
-    window.instrument = window.classLabels[maxIndex + 1];
+    window.instrument = window.classLabels[maxIndex];
 
     console.log(window.instrument);
 
@@ -80,8 +82,8 @@ export function stop() {
         else if(i === window.classLabels.length){
             window.labelContainer.childNodes[i].innerHTML = "Current: ";
           }
-          else{
+        else{
             window.labelContainer.childNodes[i].innerHTML = "Most played: " + window.instrument;
-          }
+        }
     }
 }

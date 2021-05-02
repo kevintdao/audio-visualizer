@@ -7,11 +7,10 @@ import {Visualizer} from "./Visualizer.js";
 import {visalizerInit} from '../analyzer.js';
 import {setAudioOn, setAudioOff} from '../analyzer.js';
  import {createModel} from "../tensorflow.js";
-// import { recordInit } from '../record';
 
 export function Hub() {
-    // recordInit();
     window.isListening = false;
+    
     createModel().then(result => {
       window.recognizer = result;
       window.classLabels = window.recognizer.wordLabels();
@@ -73,12 +72,25 @@ export function Hub() {
                         right: '5%',
                         top: '135px',
                         padding: '10px'}}>
-              <div div id="label-container" style={{width: '225px'}}>
+              <div div id="label-container" style={{width: '250px'}}>
               </div>
             </div>
-            <div id="downloadLinks">
 
+
+            <div style={{border: 'solid 1px #DEE2E6',
+                        borderRadius: '5px',
+                        display: 'block',
+                        position: 'fixed',
+                        right: '5%',
+                        top: '340px',
+                        padding: '10px',
+                        width: '300px'}}>
+              <div><p>Download Links:</p></div>
+              <div id="downloadLinks" style={{maxWidth: '300px', display: 'block'}}>
+
+              </div>
             </div>
+
             <audio id="audio" 
               controls
               onPause={setAudioOff} 

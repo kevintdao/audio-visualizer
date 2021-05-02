@@ -1,7 +1,7 @@
 import { Button } from 'react-bootstrap';
-import React, { useState, useRef } from 'react';
+import React from 'react';
 import '../firebase';
-import {database, auth, storage} from '../firebase';
+import {auth, storage} from '../firebase';
 import {visalizerInitForRecord} from '../analyzer.js';
  import {listen, stop} from '../tensorflow.js';
 
@@ -40,6 +40,7 @@ export function Record(){
         stopped = false;
         const recordedChunks = [];
         const options = {mimeType: 'audio/webm'};
+        let fileName;
         navigator.mediaDevices.getUserMedia({audio:true, video: false}).then( stream => {
             const mediaRecorder = new MediaRecorder(stream, options);
             mediaRecorder.start(1000);
@@ -61,15 +62,23 @@ export function Record(){
                 
                 sessionStorage.setItem('file', url);
                 var date = new Date();
-                storage.child('users/' + uid  + '/input-from-mic' + date.getHours() + date.getMinutes() + date.getSeconds() + '.wav').put(newObj);
+                fileName = 'input-from-mic' + date.getHours() + date.getMinutes() + date.getSeconds();
+                storage.child('users/' + uid  + '/' + fileName + '.wav').put(newObj);
                 getDownloadList();
                 visalizerInitForRecord();
 
+
                 window.downloadLinks = document.getElementById('downloadLinks');
+                let childCount = window.downloadLinks.childElementCount;
                 for(let i = 0; i < files.length; i++)
                 {
-                    window.downloadLinks.appendChild(document.createElement("div"));
-                    window.downloadLinks.childNodes[i].innerHTML = files[i];
+                    if(i === childCount){
+                        window.downloadLinks.appendChild(document.createElement("div"));
+                        window.downloadLinks.childNodes[i].appendChild(document.createElement('a'));
+                        
+                        window.downloadLinks.childNodes[i].childNodes[0].setAttribute('href', files[i]);
+                        window.downloadLinks.childNodes[i].childNodes[0].innerHTML = fileName;
+                    }
                 }
               });
               
