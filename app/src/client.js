@@ -6,7 +6,7 @@ const socket = io('raspberrypi.local:3001', {transports: ['websocket']});
 //     socket.emit('sendUID', auth.currentUser.uid);
 // }
 
-export var ledArray = (dataArray, color) => {
+export var ledArray = (dataArray, color, instrument) => {
     var dataArrayAvg = new Array(8);
     var sum = 0
     var index = 0;
@@ -23,5 +23,5 @@ export var ledArray = (dataArray, color) => {
         }
     }
 
-    socket.emit('sendLEDArray', dataArrayAvg, color);
+    socket.emit('sendLEDArray', dataArrayAvg, color, instrument);
 }

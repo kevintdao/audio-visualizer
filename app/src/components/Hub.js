@@ -6,28 +6,30 @@ import { Record } from "./betterRecord";
 import {Visualizer} from "./Visualizer.js";
 import {visalizerInit} from '../analyzer.js';
 import {setAudioOn, setAudioOff} from '../analyzer.js';
-// import {createModel} from "../tensorflow.js";
+ import {createModel} from "../tensorflow.js";
 // import { recordInit } from '../record';
 
 export function Hub() {
     // recordInit();
     window.isListening = false;
-    // createModel().then(result => {
-    //   window.recognizer = result;
-    //   window.classLabels = window.recognizer.wordLabels();
-    //   window.labelContainer = document.getElementById("label-container");
+    createModel().then(result => {
+      window.recognizer = result;
+      window.classLabels = window.recognizer.wordLabels();
+      window.labelContainer = document.getElementById("label-container");
 
-    //   for (let i = 0; i < window.classLabels.length + 1; i++) {
-    //     window.labelContainer.appendChild(document.createElement("div"));
-    //     if(i < window.classLabels.length){
-    //       window.labelContainer.childNodes[i].innerHTML = window.classLabels[i] + ": 0%";
-    //     }
-    //     else{
-    //       window.labelContainer.childNodes[i].innerHTML = "Current: ";
-    //     }
-        
-    //   }
-    // });
+      for (let i = 0; i < window.classLabels.length + 2; i++) {
+        window.labelContainer.appendChild(document.createElement("div"));
+        if(i < window.classLabels.length){
+          window.labelContainer.childNodes[i].innerHTML = window.classLabels[i] + ": 0%";
+        }
+        else if(i === window.classLabels.length){
+          window.labelContainer.childNodes[i].innerHTML = "Current: ";
+        }
+        else{
+          window.labelContainer.childNodes[i].innerHTML = "Most played: ";
+        }
+      }
+    });
 
     return (
         <>
@@ -56,10 +58,11 @@ export function Hub() {
                                               position: 'fixed',
                                               left: '5%',
                                               top: '45px'}}>Download</a>  
+                                              
             <div style={{ display: 'flex',
                           position: 'fixed',
                           top: '85px',
-                          left: '30%'}}>
+                          right: '5%'}}>
               <Record /> 
             </div>
 

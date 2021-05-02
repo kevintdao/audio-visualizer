@@ -3,50 +3,31 @@ import React, { useState, useRef } from 'react';
 import '../firebase';
 import {database, auth, storage} from '../firebase';
 import {visalizerInitForRecord} from '../analyzer.js';
-// import {listen, stop} from '../tensorflow.js';
+ import {listen, stop} from '../tensorflow.js';
 
 export function Record(){
     let shouldStop = false;
     let stopped = false;
     let files = [];
     var uid = auth.currentUser.uid;
-    let listItems;
     const getDownloadList = () => {
         var listRef = storage.child('users/' + uid);
-        var num = 0;
         listRef.listAll()
             .then((res) => {
-                // var key;
-                // var val;
                 res.prefixes.forEach((folderRef) =>{
-                    // key = folderRef;
-                    // console.log('folderRef: ' + folderRef);
                 });
                 res.items.forEach((itemRef) => {
                     itemRef.getDownloadURL()
                         .then((url)=> {
                             files.push(url);
-                            // files.push({id: num, file:url});
-                            // num = num + 1;
                         })
                         .catch((error)=> {
                             console.log('error with file');
                         });
-                    // val = itemRef;
-                    //console.log('itemRef: ' + itemRef);
-                    //var gsRef = storage.refFromURL(itemRef);
-                    // storage.child(itemRef).getDownloadURL()
-                    //     .then((url) => {
-                    //         files.push(url);
-                    //     })
-                    // files.push(gsRef);
-                    //files.push(storage.refFromURL(itemRef));
-                    // files.push(itemRef);
                 });
             }).catch((error) => {
                 console.log('error occured when fetching files');
             });  
-            // console.log(files);
     };
 
     const stopButton = () => {
@@ -87,7 +68,6 @@ export function Record(){
                 visalizerInitForRecord();
 
                 window.downloadLinks = document.getElementById('downloadLinks');
-                // console.log(files.length);
                 for(let i = 0; i < files.length; i++)
                 {
                     window.downloadLinks.appendChild(document.createElement("div"));
@@ -103,23 +83,7 @@ export function Record(){
     return (
         <>
                 <Button id="start" onClick={getAudio} variant='success' style={{marginLeft: '10px', marginRight: '10px'}}>Start</Button>
-                <Button id="stop" onClick={stopButton} variant='danger' style={{marginLeft: '10px', marginRight: '10px'}}>Stop</Button>
-                {/* {files.map((id, file) => {
-                    <li key={id} item={file}></li>
-                })} */}
-
-
-                {/* <div>
-
-                {files.map((fil) => {
-                    const { id, file} = fil;
-                    return (
-                        <div key={id}>
-                            <a href={file}>{id}</a>
-                        </div>
-                    )
-                })}
-                </div> */}
+                <Button id="stop" onClick={stopButton} variant='danger' style={{marginLeft: '10px'}}>Stop</Button>
         </>
     );
 

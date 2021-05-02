@@ -1,6 +1,6 @@
 import React from 'react';
 import {Button, ButtonGroup} from "react-bootstrap";
-import {colorRed, colorBlue, colorGreen} from '../analyzer.js';
+import {colorRed, colorBlue, colorGreen, colorInstrument} from '../analyzer.js';
 
 export function Visualizer() {
     window.color = 'red';
@@ -28,6 +28,7 @@ export function Visualizer() {
                     <Button variant='dark' style={{background: 'red'}} onClick={colorRed}>Red</Button>
                     <Button variant='dark' style={{background: 'blue'}} onClick={colorBlue}>Blue</Button>
                     <Button variant='dark' style={{background: 'green'}} onClick={colorGreen}>Green</Button>
+                    <Button variant='dark' style={{background: 'grey'}} onClick={colorInstrument}>Instrument</Button>
                 </ButtonGroup>
             </div>
         </>
