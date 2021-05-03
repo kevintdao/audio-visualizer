@@ -3,7 +3,6 @@
 
 const express = require('express');
 const socket = require('socket.io');
-// const { firebaseApp } = require('./firebase');
 const app = express();
 var sense = require("@trbll/sense-hat-led");
 sense.setRotation(90);
@@ -14,19 +13,12 @@ const server = app.listen('3001', () => {
 
 var io = socket(server);
 
-//firebaseApp();
-
 io.on('connection', (socket) => {
     console.log(socket.id);
 
     socket.on('disconnect', () => {
         console.log("User disconnected");
     })
-
-    // socket.on('sendUID', (uid) => {
-    //     userUID = uid;
-    //     module.exports = {uid};
-    // })
 
     socket.on('sendLEDArray', (dataArray, color, instrument) => {
         var index = 0;
@@ -56,7 +48,7 @@ io.on('connection', (socket) => {
                             sense.setPixel(col, row, [0, 70 + (10*col), 70 + (10*col)]);
                         }
                         else{
-                            sense.setPixel(col, row, [0 + (26*col), 0, 0]);
+                            sense.setPixel(col, row, [255 - (26*col), 0, 0]);
                         }
                     }
                 }

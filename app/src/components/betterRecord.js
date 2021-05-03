@@ -10,25 +10,29 @@ export function Record(){
     let stopped = false;
     let files = [];
     var uid = auth.currentUser.uid;
-    const getDownloadList = () => {
-        var listRef = storage.child('users/' + uid);
-        listRef.listAll()
-            .then((res) => {
-                res.prefixes.forEach((folderRef) =>{
-                });
-                res.items.forEach((itemRef) => {
-                    itemRef.getDownloadURL()
-                        .then((url)=> {
-                            files.push(url);
-                        })
-                        .catch((error)=> {
-                            console.log('error with file');
-                        });
-                });
-            }).catch((error) => {
-                console.log('error occured when fetching files');
-            });  
-    };
+
+    async function uploadFile(fileName, blob){
+        const currentFile = await storage.child('users/' + uid  + '/' + fileName + '.wav').put(blob);
+        const downloadURL = await currentFile.ref.getDownloadURL();
+        files.push(downloadURL);
+
+        displayLinks(fileName);
+        visalizerInitForRecord();
+    }
+
+    function displayLinks(fileName){
+        window.downloadLinks = document.getElementById('downloadLinks');
+        let childCount = window.downloadLinks.childElementCount;
+        for(let i = 0; i < files.length; i++){
+            if(i === childCount){
+                window.downloadLinks.appendChild(document.createElement("div"));
+                window.downloadLinks.childNodes[i].appendChild(document.createElement('a'));
+                
+                window.downloadLinks.childNodes[i].childNodes[0].setAttribute('href', files[i]);
+                window.downloadLinks.childNodes[i].childNodes[0].innerHTML = fileName;
+            }
+        }
+    }
 
     const stopButton = () => {
         shouldStop = true;
@@ -58,29 +62,14 @@ export function Record(){
                 var newObj = new Blob(recordedChunks);
                 const url = URL.createObjectURL(newObj);
                 downloadLink.href =  url;
-                downloadLink.download = 'input-from-mic.wav'
+                downloadLink.download = 'input-from-mic.wav';
                 
                 sessionStorage.setItem('file', url);
                 var date = new Date();
                 fileName = 'input-from-mic' + date.getHours() + date.getMinutes() + date.getSeconds();
-                storage.child('users/' + uid  + '/' + fileName + '.wav').put(newObj);
-                getDownloadList();
-                visalizerInitForRecord();
 
-
-                window.downloadLinks = document.getElementById('downloadLinks');
-                let childCount = window.downloadLinks.childElementCount;
-                for(let i = 0; i < files.length; i++)
-                {
-                    if(i === childCount){
-                        window.downloadLinks.appendChild(document.createElement("div"));
-                        window.downloadLinks.childNodes[i].appendChild(document.createElement('a'));
-                        
-                        window.downloadLinks.childNodes[i].childNodes[0].setAttribute('href', files[i]);
-                        window.downloadLinks.childNodes[i].childNodes[0].innerHTML = fileName;
-                    }
-                }
-              });
+                uploadFile(fileName, newObj);
+            });
               
             // mediaRecorder.start(1000);
             listen();
@@ -89,8 +78,8 @@ export function Record(){
     
     return (
         <>
-                <Button id="start" onClick={getAudio} variant='success' style={{marginLeft: '10px', marginRight: '10px'}}>Start</Button>
-                <Button id="stop" onClick={stopButton} variant='danger' style={{marginLeft: '10px'}}>Stop</Button>
+            <Button id="start" onClick={getAudio} variant='success' style={{marginLeft: '10px', marginRight: '10px'}}>Start</Button>
+            <Button id="stop" onClick={stopButton} variant='danger' style={{marginLeft: '10px'}}>Stop</Button>
         </>
     );
 
